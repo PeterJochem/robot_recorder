@@ -45,10 +45,13 @@ class ROSRecorder(Recorder):
             self.auto_mode(on_shutdown=rospy.on_shutdown)
 
     @sm(requ=["UNCONF"], trans="CONF")
-    def preconfigure(self, key="robot_description"):
+    def preconfigure(self, key='/rx200/robot_description'):
         rospy.Subscriber("tf_changes", tfMessage, self.tf_callback)
+        params = rospy.get_param_names()
+        for param in params:
+            print(param)
         if rospy.has_param(key):
-            rospy.Subscriber("joint_states", JointState, self.js_callback)
+            rospy.Subscriber("/rx200/joint_states", JointState, self.js_callback)
             self.j_map = URDF.from_parameter_server(key).joint_map
             rospy.loginfo("Loading robot description ...")
             rospy.sleep(2.0)

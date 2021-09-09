@@ -25,7 +25,17 @@ class Track(object):
         self.value = self.r(v)
 
     def _add_kf(self, t):
+        #try:
+        if t is None:
+            t = 0.0
         self.keys.append({"value": self.value, "time": round(t, self.digits)})
+        """
+        except Exception as e:
+            print(e)
+            print(self.value)
+            print(t)
+            print("----")
+        """
 
     def add(self, v, t, th):
         if self.keys and (self.keys[-1]["time"] < t - th):

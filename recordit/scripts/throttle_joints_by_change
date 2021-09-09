@@ -12,7 +12,7 @@ class ThrottleByDistance:
         self.throttle_value = rospy.get_param("~throttle_value", 0.1)
         self.pub = rospy.Publisher("joint_states_changes", JointState, queue_size=10)
         rospy.init_node("throttle_by_distance", anonymous=True)
-        rospy.Subscriber("joint_states", JointState, self.callback)
+        rospy.Subscriber("/rx200/joint_states", JointState, self.callback)
         rospy.spin()
 
     def publish(self, msg):

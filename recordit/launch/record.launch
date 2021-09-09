@@ -1,6 +1,6 @@
 <launch>
 
-  <arg name="manual"          default="false" />
+  <arg name="manual"          default="true" />
   <arg name="path"            default=""/> <!-- Path to save the recording -->
   <arg name="throttle_hz"     default="10" />
   <arg name="throttle_value"  default="0.05" />
@@ -14,6 +14,7 @@
  <node pkg="recordit" type="throttle_joints_by_change" name="throttle_joints_by_change">
     <param name="throttle_value" type="double" value="$(arg throttle_value)"/>
     <remap from="joint_states" to="joint_states_throttle"/>
+    <!-- remap from="/rx200/robot_description" to="/robot_description"/ -->
   </node>
 
   <node pkg="recordit" type="recordit" name="robot_recorder" output="screen">
@@ -22,6 +23,7 @@
     <param name="pause_threshold" type="double" value="$(arg pause_threshold)"/>
     <param name="round_digits"    type="int"    value="$(arg round_digits)"/>
     <remap from="joint_states" to="joint_states_changes"/>
+    <!-- remap from="/rx200/robot_description" to="/robot_description"/ -->
   </node>
 
 </launch>
